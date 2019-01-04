@@ -14,7 +14,7 @@ class PopupProvider extends React.Component {
         const open = !!currentPopup
 
         const clonedElement = React.cloneElement(child2, { open, params })
-        if (popup && Object.keys(popup).findIndex(name => name === clonedElement.props.name) !== -1) {
+        if (popup && Object.keys(popup).findIndex(name => name === clonedElement.props.name) !== -1 || clonedElement.props.open) {
           modifiedChildren.push(clonedElement)
         }
       })
