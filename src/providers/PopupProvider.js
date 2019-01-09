@@ -11,16 +11,17 @@ class PopupProvider extends React.Component {
       React.Children.forEach(child.props.children, child2 => {
         const currentPopup = popup[child2.props.name]
         const params = currentPopup ? currentPopup.params : undefined
-        const open = !!currentPopup
+        const open = !!currentPopup || !!child2.props.open
 
         const clonedElement = React.cloneElement(child2, { open, params })
-        if (popup && Object.keys(popup).findIndex(name => name === clonedElement.props.name) !== -1 || clonedElement.props.open) {
+        if (
+          (popup && Object.keys(popup).findIndex(name => name === clonedElement.props.name) !== -1) ||
+          (clonedElement.props && clonedElement.props.open)
+        ) {
           modifiedChildren.push(clonedElement)
         }
       })
     })
-
-    // console.log('children2', modifiedChildren[0]);
 
     return (
       <Parent.type {...Parent.props}>
